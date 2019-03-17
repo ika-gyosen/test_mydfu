@@ -67,7 +67,7 @@ var device = null;
         const name = (settings.name) ? settings.name : "UNKNOWN";
 
         return `${mode}: cfg=${cfg}, intf=${intf}, alt=${alt}, name="${name}"`;
-    }
+    } 
 
     async function fixInterfaceNames(device_, interfaces) {
         // Check if any interface names were not read correctly
