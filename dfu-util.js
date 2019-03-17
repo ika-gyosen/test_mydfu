@@ -510,11 +510,11 @@ var device = null;
                             device = await connect(new dfu.Device(selectedDevice, interfaces[0]));
                         } else {
                             await fixInterfaceNames(selectedDevice, interfaces);
-                            populateInterfaceList(interfaceForm, selectedDevice, interfaces);
+                            populateInterfaceList(interfaceForm, selectedDevice, interfaces); // 多分どこに流し込むかの選択肢
                             async function connectToSelectedInterface() {
                                 interfaceForm.removeEventListener('submit', this);
                                 const index = interfaceForm.elements["interfaceIndex"].value;
-                                device = await connect(new dfu.Device(selectedDevice, interfaces[index]));
+                                device = await connect(new dfu.Device(selectedDevice, interfaces[index])); //ここで選択されたインターフェースで接続してる？
                             }
 
                             interfaceForm.addEventListener('submit', connectToSelectedInterface);
