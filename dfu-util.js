@@ -499,7 +499,7 @@ var device = null;
                 } else if (vid) {
                     filters.push({ 'vendorId': vid });
                 }
-                navigator.usb.requestDevice({ 'filters': filters }).then(
+                navigator.usb.requestDevice({ 'filters':  [{ vendorId: 0x04D8 , productId: 0x0053}]  }).then(
                     async selectedDevice => {
                         let interfaces = dfu.findDeviceDfuInterfaces(selectedDevice);
                         if (interfaces.length == 0) {
