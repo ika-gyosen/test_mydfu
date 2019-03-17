@@ -493,12 +493,12 @@ var device = null;
                 device.close().then(onDisconnect);
                 device = null;
             } else {
-                // let filters = [];
-                // if (serial) {
-                //     filters.push({ 'serialNumber': serial });
-                // } else if (vid) {
-                //     filters.push({ 'vendorId': vid });
-                // }
+                let filters = [];
+                if (serial) {
+                    filters.push({ 'serialNumber': serial });
+                } else if (vid) {
+                    filters.push({ 'vendorId': vid });
+                }
                 navigator.usb.requestDevice({ /*'filters': filters*/ }).then(
                     async selectedDevice => {
                         let interfaces = dfu.findDeviceDfuInterfaces(selectedDevice);
