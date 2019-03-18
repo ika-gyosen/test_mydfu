@@ -235,6 +235,7 @@ var device = null;
               console.log(device.productName);      // "Arduino Micro"
               console.log(device.manufacturerName); // "Arduino LLC"
             });
+            return device.open();
           })
 
         let searchParams = new URLSearchParams(window.location.search);
