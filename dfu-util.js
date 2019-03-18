@@ -487,7 +487,12 @@ var device = null;
                 field.setCustomValidity("");
             }
         });
-
+        navigator.usb.getDevices().then(devices => {
+            devices.map(device => {
+              console.log(device.productName);      // "Arduino Micro"
+              console.log(device.manufacturerName); // "Arduino LLC"
+            });
+          })
         connectButton.addEventListener('click', function() {
             if (device) {
                 device.close().then(onDisconnect);
