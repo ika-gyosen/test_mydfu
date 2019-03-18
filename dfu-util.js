@@ -229,6 +229,14 @@ var device = null;
         let interfaceForm = document.querySelector("#interfaceForm");
         let interfaceSelectButton = document.querySelector("#selectInterface");
 
+        //-------------------
+        navigator.usb.getDevices().then(devices => {
+            devices.map(device => {
+              console.log(device.productName);      // "Arduino Micro"
+              console.log(device.manufacturerName); // "Arduino LLC"
+            });
+          })
+
         let searchParams = new URLSearchParams(window.location.search);
         let fromLandingPage = false;
         let vid = 0;
@@ -487,12 +495,7 @@ var device = null;
                 field.setCustomValidity("");
             }
         });
-        navigator.usb.getDevices().then(devices => {
-            devices.map(device => {
-              console.log(device.productName);      // "Arduino Micro"
-              console.log(device.manufacturerName); // "Arduino LLC"
-            });
-          })
+
         connectButton.addEventListener('click', function() {
             if (device) {
                 device.close().then(onDisconnect);
