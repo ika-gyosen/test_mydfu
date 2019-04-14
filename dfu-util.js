@@ -67,7 +67,7 @@ var device = null;
         const name = (settings.name) ? settings.name : "UNKNOWN";
 
         return `${mode}: cfg=${cfg}, intf=${intf}, alt=${alt}, name="${name}"`;
-    } 
+    }
 
     async function fixInterfaceNames(device_, interfaces) {
         // Check if any interface names were not read correctly
@@ -228,15 +228,6 @@ var device = null;
         let interfaceDialog = document.querySelector("#interfaceDialog");
         let interfaceForm = document.querySelector("#interfaceForm");
         let interfaceSelectButton = document.querySelector("#selectInterface");
-
-        //-------------------
-        navigator.usb.getDevices().then(devices => {
-            devices.map(device => {
-              console.log(device.productName);      // "Arduino Micro"
-              console.log(device.manufacturerName); // "Arduino LLC"
-            });
-            return device.open();
-          })
 
         let searchParams = new URLSearchParams(window.location.search);
         let fromLandingPage = false;
@@ -508,8 +499,7 @@ var device = null;
                 } else if (vid) {
                     filters.push({ 'vendorId': vid });
                 }
-                //filters = [{vendorId: 0x0483 , productId: 0xdf11}];
-                navigator.usb.requestDevice({filters: filters}).then(
+                navigator.usb.requestDevice({ 'filters': filters }).then(
                     async selectedDevice => {
                         let interfaces = dfu.findDeviceDfuInterfaces(selectedDevice);
                         if (interfaces.length == 0) {
@@ -520,11 +510,11 @@ var device = null;
                             device = await connect(new dfu.Device(selectedDevice, interfaces[0]));
                         } else {
                             await fixInterfaceNames(selectedDevice, interfaces);
-                            populateInterfaceList(interfaceForm, selectedDevice, interfaces); // 多分どこに流し込むかの選択肢
+                            populateInterfaceList(interfaceForm, selectedDevice, interfaces);
                             async function connectToSelectedInterface() {
                                 interfaceForm.removeEventListener('submit', this);
                                 const index = interfaceForm.elements["interfaceIndex"].value;
-                                device = await connect(new dfu.Device(selectedDevice, interfaces[index])); //ここで選択されたインターフェースで接続してる？
+                                device = await connect(new dfu.Device(selectedDevice, interfaces[index]));
                             }
 
                             interfaceForm.addEventListener('submit', connectToSelectedInterface);
