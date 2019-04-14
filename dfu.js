@@ -476,7 +476,7 @@ var dfu = {};
             data =>
                 Promise.resolve({
                     "status": data.getUint8(0),
-                    "pollTimeout": (data.getUint32(1, true) & 0xFFFFFF) = 50,
+                    "pollTimeout": (data.getUint32(1, true) & 0xFFFFFF) + 50,
                     "state": data.getUint8(4)
                 }),
             error =>
